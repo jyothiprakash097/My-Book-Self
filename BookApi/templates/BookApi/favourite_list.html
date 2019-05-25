@@ -1,0 +1,21 @@
+{% extends "BookApi/book.html" %}
+{% block content %}
+   <div class="row">
+     {% for p in favourite %}
+       <div class="col-md-6">
+        <div class="img-thumbnail">
+          <a href="{{ p }}">{{ p.title }}</a><small style="float:right">{{ p.author }}</small><br>
+          {{ p.body }}
+        </div>
+        <br>  
+      </div>
+
+      {% empty %}
+        <div class="container-fluid">
+          <h1>there are no favourites</h1>
+
+        </div>
+     {% endfor %}       
+   
+   </div>
+{% endblock %}
