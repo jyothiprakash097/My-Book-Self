@@ -1,0 +1,78 @@
+{% extends "BookApi/index.html" %}
+
+{% block content %}
+{% include "BookApi/navbar.html" %}
+<div class="search">
+  <form method="POST" class="search-form">
+    {% csrf_token %}
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" name="search" class="form-control" id="input" aria-label="Username"
+      placeholder="Search any movie ...">
+    <button class="button" type="submit" name='submit' value="search" id="button">Search</button>
+  </form>
+</div>
+<!-- <h5>Trending movies of the week</h5> -->
+<div class="album py-4 bg-black">
+  <div class="wrap" class="container-fluid">
+    <div class="grid">
+      {% for movies in book_data %}
+      <form action="" method="POST" class="h-100">
+        {% csrf_token %}
+        <div class="h-100">
+          <div for="poster" class="card h-100 shadow-sm d-flex flex-row">
+            {% if movies.icon %}
+            <div>
+              <a href="/cast/{{ movies.id }}">
+                <img class="bd-placeholder-img card-img-top w-100 h-100" style="max-width: 250px; object-fit: cover"
+                  src="{{ movies.icon }}" alt="NO"></img>
+                <input for="poster" name="icon" id="poster" type="hidden" class="card-text" value="{{ movies.icon }}">
+              </a>
+            </div>
+            {% else %}
+            <img class="bd-placeholder-img card-img-top w-100 h-100" style="max-width: 250px; object-fit: cover"
+              src="https://via.placeholder.com/150/000000/FFFFFF/?text=NO Image" alt="NO"></img>
+            <input for="poster" name="icon" id="poster" type="hidden" class="card-text" value="{{ movies.icon }}">
+            {% endif %}
+            <div class="card-body">
+              <a href="/cast/{{ movies.id }}">
+                <p for="title" class="card-text">{{ movies.title|slice:":23" }}</p>
+                <div for="title" class="authors">By {{ movies.author|slice:":20" }}</div>
+                <input for="author" name="author" id="title" type="hidden" class="card-text" value="{{ movies.author }}">
+                <input for="title" name="title" id="title" type="hidden" class="card-text" value="{{ movies.title }}">
+              </a>
+              <div class="d-flex justify-content-between align-items-center">
+                <p for="overview" class="card" id="overview">{{ movies.description|slice:":150" }}....</p>
+                <input for="overview" class="card" name="description" id="overview" type="hidden" class="card-text"
+                  value="{{ movies.description }}">
+              </div>
+              <div class="rating_search">
+                <i class="fas fa-calendar movie_list_calender"></i>
+                <small for="release" id="date">{{ movies.publishdate }}</small>
+                <input for="release" id="date" name="publishdate" type="hidden" class="text-muted ml-auto"
+                  value="{{ movies.publishdate }}">
+        
+                  <i class="fas fa-hourglass-half" id="pagecount"></i>
+                  <small for="release" id="hello">{{ movies.pagecount|slice:":5" }}</small>
+                <input for="release" id="pagecount" name="pageCount" type="hidden" class="pagecount"
+                  value="{{ movies.pagecount }}">
+            
+
+              </div>
+              <div class="line"></div>
+              <!-- <div class="vote_average">{{ movies.infoLink }}</div> -->
+              <div class="bottom-line">
+                <a href="{{ movies.infoLink }}" class="info">More Info</a>
+                <input for="vote_average" id="date" name="infoLink" type="hidden" class="text-muted ml-auto"
+                    value="{{ movies.infoLink }}">
+                <button class="taskAdd" name="taskAdd" type="submit"><i class="far fa-heart"></i></button>
+              </div>
+
+            </div>
+          </div>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% include "BookApi/footer.html" %}
+{% endblock content %}

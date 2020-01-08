@@ -1,0 +1,22 @@
+{% load static %}
+ <!-- Navbar -->
+     <!--top nav-bar  -->
+<nav class="nav-first">
+    <ul>
+      <li
+      {% if 'search' in request.path %}
+          class="active"
+        {% else %}   
+           class="nav-item mr-3"
+        {% endif %}
+      ><a href="{% url 'search' %}"><i class="fas fa-search li-first"></i></a></li>
+        <li
+        {% if 'booklist' in request.path %}
+            class="active"
+          {% else %}   
+             class="nav-item mr-3"
+          {% endif %}
+        ><a href="{% url 'booklist' %}"><i class="fas fa-list li-first"></i></a></li>
+       
+    </ul>
+</nav> 
